@@ -22,17 +22,24 @@ namespace ConnectionList_Client
 {
     public partial class MainWindow : Window
     {
-        readonly int PORT = 9999;
+        readonly int PORT = 5518;
         TcpClient client;
         NetworkStream stream = default(NetworkStream);
 
         public MainWindow()
         {
             InitializeComponent();
+            
+
+
+        }
+        async void Connect()
+        {
             client = new TcpClient();
-            client.Connect("127.0.0.1", PORT);
+            await client.ConnectAsync("127.0.0.1", PORT);
             stream = client.GetStream();
-            string nickName = "Mingky";
+            //string nickName = "Mingky";
+            string nickName = XAML_Nickname.Text;
             byte[] nickNameBytes = Encoding.UTF8.GetBytes(nickName);
             stream.WriteByte((byte)nickNameBytes.Length);
             stream.Write(nickNameBytes, 0, nickNameBytes.Length);
@@ -64,6 +71,12 @@ namespace ConnectionList_Client
         {
             stream.Close();
             client.Close();
+        }
+
+        private void XAML_Connect_Click(object sender, RoutedEventArgs e)
+        {
+            Connect();
+
         }
     }
 }

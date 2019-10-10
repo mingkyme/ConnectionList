@@ -23,7 +23,7 @@ namespace ConnectionList_Server
 {
     public partial class MainWindow : Window
     {
-        readonly int PORT = 9999;
+        readonly int PORT = 5518;
         TcpListener server;
 
         Thread connectionThread;
